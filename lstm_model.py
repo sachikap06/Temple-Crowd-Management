@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import pandas as pd
 import os
 
 # ==========================================
@@ -74,13 +75,18 @@ def predict_future_crowd(history_counts, model=None, forecast_horizon=10):
     if len(history_counts) == 0:
         return 0
 
-    current_val = float(history_counts[-1])
+    # Median filter history to remove transient count spikes
+    history_arr = np.array(history_counts, dtype=np.float32)
+    if len(history_arr) >= 3:
+        history_arr = pd.Series(history_arr).rolling(window=3, min_periods=1, center=True).median().values
+
+    current_val = float(history_arr[-1])
 
     # Pad sequence if history is shorter than SEQ_LENGTH window
-    if len(history_counts) < SEQ_LENGTH:
-        padded = np.pad(history_counts, (SEQ_LENGTH - len(history_counts), 0), mode='edge')
+    if len(history_arr) < SEQ_LENGTH:
+        padded = np.pad(history_arr, (SEQ_LENGTH - len(history_arr), 0), mode='edge')
     else:
-        padded = np.array(history_counts[-SEQ_LENGTH:], dtype=np.float32)
+        padded = history_arr[-SEQ_LENGTH:]
 
     if model is None:
         model = load_trained_model()
@@ -97,6 +103,12 @@ def predict_future_crowd(history_counts, model=None, forecast_horizon=10):
         short_trend = (padded[-1] - padded[-3]) / 2.0
     else:
         short_trend = 0.0
+
+    # Stabilize prediction if recent history is virtually constant
+    if np.max(padded[-5:]) - np.min(padded[-5:]) <= 1.0:
+        recent_mean = float(np.mean(padded[-5:]))
+        short_trend = 0.0
+        raw_pred = 0.05 * raw_pred + 0.95 * recent_mean
 
     # Dynamic blend: LSTM neural pattern + live momentum anchor
     blend_pred = 0.65 * raw_pred + 0.35 * (current_val + short_trend * 1.5)

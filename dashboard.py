@@ -57,11 +57,15 @@ def live_dashboard():
         st.error("crowd_data.csv not found. Please start detect.py camera script.")
         return
 
-    # Read CSV
-    df = pd.read_csv(csv_file)
+    # Read CSV safely to handle file-lock race conditions during detect.py writes
+    try:
+        df = pd.read_csv(csv_file)
+    except Exception:
+        st.warning("Updating live data...")
+        return
 
-    if df.empty:
-        st.warning("Waiting for crowd data...")
+    if df.empty or "People_Count" not in df.columns or "Timestamp" not in df.columns:
+        st.warning("Waiting for valid crowd data...")
         return
 
     # --------------------------------------------------
@@ -99,7 +103,10 @@ def live_dashboard():
         st.subheader("📷 Live Camera Feed")
         live_frame_path = "output/live_frame.jpg"
         if os.path.exists(live_frame_path):
-            st.image(live_frame_path, use_container_width=True)
+            try:
+                st.image(live_frame_path, use_container_width=True)
+            except Exception:
+                st.info("Updating camera feed...")
         else:
             st.info("Waiting for camera feed...")
 
@@ -136,6 +143,9 @@ def live_dashboard():
 
     recent_data = df.tail(60).copy()
     
+    # Smooth historical counts to ensure clean jitter-free graph display
+    recent_data["People_Count"] = recent_data["People_Count"].rolling(window=3, min_periods=1, center=True).median().astype(int)
+
     # Calculate rolling LSTM predictions for the trend graph
     counts_array = recent_data["People_Count"].values
     lstm_preds = []

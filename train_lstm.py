@@ -11,15 +11,23 @@ from lstm_model import CrowdLSTM, MODEL_PATH, SEQ_LENGTH, MAX_COUNT
 # EFFICIENT BATCHED LSTM TRAINING SCRIPT
 # ==========================================
 
-def generate_temple_sequences(num_samples=800):
+def generate_temple_sequences(num_samples=1200):
     """
-    Generates diverse crowd arrivals across various crowd levels (0 to 45).
+    Generates diverse crowd arrivals across various crowd levels (0 to 45),
+    including steady low-density crowd periods (0 to 3 people).
     """
     np.random.seed(42)
-    t = np.linspace(0, 8 * np.pi, num_samples)
+    t = np.linspace(0, 10 * np.pi, num_samples)
     base = 15 + 12 * np.sin(t) + 6 * np.cos(2.5 * t) + 4 * np.sin(0.5 * t)
     noise = np.random.normal(0, 1.0, num_samples)
     counts = np.clip(base + noise, 0, 48)
+
+    # Add realistic low-density steady periods (0, 1, 2, 3 people)
+    low_counts = [0, 1, 2, 3]
+    for i in range(0, num_samples - 20, 40):
+        target_val = float(low_counts[(i // 40) % len(low_counts)])
+        counts[i : i + 20] = target_val
+
     return counts.astype(np.float32)
 
 

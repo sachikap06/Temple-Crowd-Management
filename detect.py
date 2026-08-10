@@ -4,6 +4,8 @@ import pandas as pd
 from datetime import datetime
 import os
 import time
+import numpy as np
+from collections import deque
 
 # ==========================================
 # SMART TEMPLE CROWD MANAGEMENT SYSTEM
@@ -88,6 +90,7 @@ display_count = 0
 last_detection_time = time.time()
 
 PERSON_HOLD_TIME = 1
+count_window = deque(maxlen=15)
 
 
 # ==========================================
@@ -113,7 +116,7 @@ while True:
 
     results = model(
         frame,
-        conf=0.35,
+        conf=0.50,
         classes=[0],
         imgsz=416,
         verbose=False
@@ -129,15 +132,18 @@ while True:
     if results[0].boxes is not None:
         current_count = len(results[0].boxes)
 
+    count_window.append(current_count)
+
 
     # ==========================================
-    # STABLE COUNT
+    # STABLE COUNT (TEMPORAL MEDIAN FILTERING)
     # ==========================================
 
     current_timestamp = time.time()
+    smoothed_count = int(round(float(np.median(count_window))))
 
-    if current_count > 0:
-        display_count = current_count
+    if smoothed_count > 0:
+        display_count = smoothed_count
         last_detection_time = current_timestamp
 
     elif current_timestamp - last_detection_time > PERSON_HOLD_TIME:
