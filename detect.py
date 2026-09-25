@@ -4,53 +4,84 @@ import pandas as pd
 from datetime import datetime
 import os
 import time
+import json
+import argparse
 import numpy as np
 from collections import deque
 
-# ==========================================
-# SMART TEMPLE CROWD MANAGEMENT SYSTEM
-# ==========================================
+# Parse command line parameters
+parser = argparse.ArgumentParser(description="Smart Temple Live Crowd Detection")
+parser.add_argument("--threshold", type=int, default=20, help="Custom alert threshold for this camera view")
+parser.add_argument("--source", type=str, default=None, help="Camera index (0, 1) or path to video file (e.g. videos/v1.mp4)")
+args, _ = parser.parse_known_args()
 
-print("Loading YOLO model...")
+CLI_THRESHOLD = args.threshold
+CLI_SOURCE = args.source
+
+print(f"Loading YOLO model... (Initial Threshold: {CLI_THRESHOLD})")
 model = YOLO("yolov8n.pt")
 
 
 # ==========================================
-# OPEN CAMERA
+# OPEN CAMERA OR VIDEO FALLBACK
 # ==========================================
 
-print("Opening webcam...")
+IS_VIDEO_FILE = False
+VIDEO_FILE_PATH = None
 
 def find_working_camera():
-    for index in [0, 1]:
-        cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)
-        if not cap.isOpened():
-            cap = cv2.VideoCapture(index)
-        if cap.isOpened():
-            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-            time.sleep(0.5)
-            ret, frame = cap.read()
-            if ret and frame is not None:
-                print(f"Successfully connected to camera index {index}!")
+    global IS_VIDEO_FILE, VIDEO_FILE_PATH
+    
+    # User specified explicit video or camera source
+    if CLI_SOURCE is not None:
+        if CLI_SOURCE.isdigit():
+            idx = int(CLI_SOURCE)
+            cap = cv2.VideoCapture(idx)
+            if cap.isOpened():
                 return cap
-            cap.release()
-    print("Defaulting to camera index 0.")
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-    if not cap.isOpened():
-        cap = cv2.VideoCapture(0)
-    return cap
+        else:
+            if os.path.exists(CLI_SOURCE):
+                print(f"[INFO] Opening specified video source: {CLI_SOURCE}")
+                IS_VIDEO_FILE = True
+                VIDEO_FILE_PATH = CLI_SOURCE
+                return cv2.VideoCapture(CLI_SOURCE)
+
+    # Fast check for physical webcams
+    for index in [0, 1]:
+        try:
+            cap = cv2.VideoCapture(index)
+            if cap.isOpened():
+                ret, frame = cap.read()
+                if ret and frame is not None and frame.size > 0:
+                    print(f"[OK] Connected to webcam index {index}!")
+                    return cap
+                cap.release()
+        except Exception:
+            continue
+
+    # Fallback to sample video in videos/ directory if no physical camera
+    sample_videos = ["videos/v1.mp4", "videos/v2.mp4"]
+    for vid in sample_videos:
+        if os.path.exists(vid):
+            print(f"\n[INFO] No physical webcam detected on this device.")
+            print(f"[INFO] Automatically streaming sample video '{vid}' for live demonstration!")
+            IS_VIDEO_FILE = True
+            VIDEO_FILE_PATH = vid
+            return cv2.VideoCapture(vid)
+
+    return cv2.VideoCapture(0)
 
 cap = find_working_camera()
 
 if not cap.isOpened():
-    print("ERROR: Cannot open camera.")
+    print("ERROR: Cannot open camera or sample video.")
     exit()
 
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+if not IS_VIDEO_FILE:
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-print("Camera opened successfully!")
+print("Detection stream started successfully!")
 
 
 # ==========================================
@@ -101,10 +132,17 @@ while True:
 
     ret, frame = cap.read()
 
-    if not ret or frame is None or frame.mean() < 1:
-        print("Unable to read camera frame. Retrying...")
-        time.sleep(0.1)
-        continue
+    if not ret or frame is None:
+        if IS_VIDEO_FILE:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+            ret, frame = cap.read()
+            if not ret or frame is None:
+                time.sleep(0.1)
+                continue
+        else:
+            print("Unable to read camera frame. Retrying...")
+            time.sleep(0.1)
+            continue
 
     # Keep original camera view
     frame = cv2.resize(frame, (640, 480))
@@ -151,20 +189,32 @@ while True:
 
 
     # ==========================================
-    # CROWD STATUS
+    # DYNAMIC CROWD STATUS & THRESHOLD
     # ==========================================
 
-    if display_count <= 5:
-        crowd_status = "Normal"
-        status_message = "Status: Normal"
+    CROWD_THRESHOLD = CLI_THRESHOLD
+    config_file = "output/live_config.json"
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, "r") as f:
+                cfg = json.load(f)
+                CROWD_THRESHOLD = int(cfg.get("threshold", CLI_THRESHOLD))
+        except Exception:
+            pass
 
-    elif display_count <= 15:
+    normal_limit = max(1, CROWD_THRESHOLD // 3)
+
+    if display_count <= normal_limit:
+        crowd_status = "Normal"
+        status_message = f"Status: Normal (Max {CROWD_THRESHOLD})"
+
+    elif display_count <= CROWD_THRESHOLD:
         crowd_status = "Moderate"
-        status_message = "WARNING: Crowd Increasing"
+        status_message = f"WARNING: Crowd Increasing (Max {CROWD_THRESHOLD})"
 
     else:
         crowd_status = "Congested"
-        status_message = "ALERT: HIGH CROWD!"
+        status_message = f"ALERT: CROWD EXCEEDED THRESHOLD ({display_count} > {CROWD_THRESHOLD})!"
 
 
     # ==========================================

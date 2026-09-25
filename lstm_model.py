@@ -67,9 +67,9 @@ def load_trained_model():
     return model
 
 
-def predict_future_crowd(history_counts, model=None, forecast_horizon=10):
+def predict_future_crowd(history_counts, model=None, forecast_horizon=1):
     """
-    Given a sequence of past people counts, predict future crowd count 10 seconds ahead
+    Given a sequence of past people counts, predict future crowd count ~1 second ahead
     combining PyTorch LSTM neural output with short-term trend dynamics.
     """
     if len(history_counts) == 0:

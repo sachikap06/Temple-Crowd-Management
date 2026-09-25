@@ -1,0 +1,63 @@
+{
+  "total_videos": 5,
+  "total_observations": 74,
+  "training_samples": 17,
+  "test_samples": 7,
+  "sequence_length": 10,
+  "forecast_horizon": "1 second",
+  "forecast_horizon_seconds": 1.00028986170672,
+  "mae": 2.95,
+  "rmse": 3.0132,
+  "model_path": "output/lstm_model.pth",
+  "predictions": [
+    {
+      "Video": "v1.mp4",
+      "Target Time": 19.0,
+      "Actual Count": 30.0,
+      "Predicted Count": 32.6,
+      "Absolute Error": 2.6
+    },
+    {
+      "Video": "v1.mp4",
+      "Target Time": 20.0,
+      "Actual Count": 35.0,
+      "Predicted Count": 32.4,
+      "Absolute Error": 2.64
+    },
+    {
+      "Video": "v1.mp4",
+      "Target Time": 21.0,
+      "Actual Count": 34.0,
+      "Predicted Count": 31.3,
+      "Absolute Error": 2.71
+    },
+    {
+      "Video": "v2.mp4",
+      "Target Time": 11.0,
+      "Actual Count": 32.0,
+      "Predicted Count": 37.0,
+      "Absolute Error": 4.95
+    },
+    {
+      "Video": "v3.mp4",
+      "Target Time": 11.0,
+      "Actual Count": 15.0,
+      "Predicted Count": 19.1,
+      "Absolute Error": 4.07
+    },
+    {
+      "Video": "v4.mp4",
+      "Target Time": 13.0,
+      "Actual Count": 38.0,
+      "Predicted Count": 40.9,
+      "Absolute Error": 2.95
+    },
+    {
+      "Video": "v5.mp4",
+      "Target Time": 13.0,
+      "Actual Count": 18.0,
+      "Predicted Count": 22.1,
+      "Absolute Error": 4.08
+    }
+  ]
+}

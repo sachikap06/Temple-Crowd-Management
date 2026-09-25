@@ -1,1 +1,15 @@
 videos/*.mp4
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+output/*.jpg
+output/*.signal
+.vscode/
+.idea/
+
+# Large model files
+*.pt
+
+# Generated/temporary files
+output/live_config.json
