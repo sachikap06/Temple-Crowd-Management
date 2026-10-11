@@ -1,0 +1,232 @@
+{
+  "current_crowd": 80,
+  "previous_crowd": 83,
+  "change": -3,
+  "change_str": "-3",
+  "change_type": "Decreased",
+  "status": "Congested",
+  "predicted_crowd": 82,
+  "threshold": 76,
+  "video_name": "v10.mp4",
+  "timestamp": "14:12:25",
+  "last_updated_epoch": 1790584945.1029263,
+  "consecutive_congested": 13,
+  "alert_fired": false,
+  "alert_message": "",
+  "alert_cooldown_active": true,
+  "last_alert_epoch": 1790584936.3847408,
+  "_consecutive_congested": 13,
+  "_last_alert_epoch": 1790584936.3847408,
+  "history": [
+    {
+      "time": "14:11:35",
+      "prev": 80,
+      "curr": 79,
+      "change_str": "-1",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:37",
+      "prev": 79,
+      "curr": 89,
+      "change_str": "+10",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:11:38",
+      "prev": 89,
+      "curr": 88,
+      "change_str": "-1",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:40",
+      "prev": 88,
+      "curr": 84,
+      "change_str": "-4",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:42",
+      "prev": 84,
+      "curr": 76,
+      "change_str": "-8",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:43",
+      "prev": 76,
+      "curr": 84,
+      "change_str": "+8",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:11:45",
+      "prev": 84,
+      "curr": 94,
+      "change_str": "+10",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:11:47",
+      "prev": 94,
+      "curr": 84,
+      "change_str": "-10",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:49",
+      "prev": 84,
+      "curr": 87,
+      "change_str": "+3",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:11:50",
+      "prev": 87,
+      "curr": 80,
+      "change_str": "-7",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:52",
+      "prev": 80,
+      "curr": 72,
+      "change_str": "-8",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:53",
+      "prev": 72,
+      "curr": 77,
+      "change_str": "+5",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:11:55",
+      "prev": 77,
+      "curr": 75,
+      "change_str": "-2",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:11:57",
+      "prev": 75,
+      "curr": 75,
+      "change_str": "0",
+      "change_type": "Unchanged"
+    },
+    {
+      "time": "14:11:59",
+      "prev": 75,
+      "curr": 73,
+      "change_str": "-2",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:01",
+      "prev": 73,
+      "curr": 81,
+      "change_str": "+8",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:12:03",
+      "prev": 81,
+      "curr": 75,
+      "change_str": "-6",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:04",
+      "prev": 75,
+      "curr": 79,
+      "change_str": "+4",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:12:06",
+      "prev": 79,
+      "curr": 78,
+      "change_str": "-1",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:08",
+      "prev": 78,
+      "curr": 77,
+      "change_str": "-1",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:09",
+      "prev": 77,
+      "curr": 84,
+      "change_str": "+7",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:12:11",
+      "prev": 84,
+      "curr": 88,
+      "change_str": "+4",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:12:13",
+      "prev": 88,
+      "curr": 85,
+      "change_str": "-3",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:14",
+      "prev": 85,
+      "curr": 85,
+      "change_str": "0",
+      "change_type": "Unchanged"
+    },
+    {
+      "time": "14:12:16",
+      "prev": 85,
+      "curr": 87,
+      "change_str": "+2",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:12:18",
+      "prev": 87,
+      "curr": 85,
+      "change_str": "-2",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:19",
+      "prev": 85,
+      "curr": 85,
+      "change_str": "0",
+      "change_type": "Unchanged"
+    },
+    {
+      "time": "14:12:21",
+      "prev": 85,
+      "curr": 86,
+      "change_str": "+1",
+      "change_type": "Increased"
+    },
+    {
+      "time": "14:12:23",
+      "prev": 86,
+      "curr": 83,
+      "change_str": "-3",
+      "change_type": "Decreased"
+    },
+    {
+      "time": "14:12:25",
+      "prev": 83,
+      "curr": 80,
+      "change_str": "-3",
+      "change_type": "Decreased"
+    }
+  ]
+}

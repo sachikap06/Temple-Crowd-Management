@@ -284,6 +284,12 @@ while True:
 
         last_saved_time = current_time
 
+        try:
+            from live_state import update_live_crowd_state
+            update_live_crowd_state(display_count, CROWD_THRESHOLD, "Live Stream")
+        except Exception:
+            pass
+
         print(
             f"Saved: {current_time} | "
             f"Count: {display_count} | "

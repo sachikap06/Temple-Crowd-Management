@@ -1,0 +1,175 @@
+{
+    "total_videos_processed": 11,
+    "total_samples_generated": 918,
+    "total_detections": 69391,
+    "people_count_stats": {
+        "min": 0,
+        "max": 165,
+        "mean": 75.59
+    },
+    "missing_values": 0,
+    "duplicate_records": 0,
+    "class_distribution": {
+        "Congested": 607,
+        "Moderate": 309,
+        "Normal": 2
+    },
+    "video_details": [
+        {
+            "video_name": "v1.mp4",
+            "width": 848,
+            "height": 480,
+            "fps": 29.97,
+            "total_frames": 660,
+            "duration_sec": 22.02,
+            "threshold": 20,
+            "samples_processed": 110,
+            "alert_count": 110,
+            "unique_track_ids": 77
+        },
+        {
+            "video_name": "v10.mp4",
+            "width": 1440,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 473,
+            "duration_sec": 17.52,
+            "threshold": 76,
+            "samples_processed": 95,
+            "alert_count": 76,
+            "unique_track_ids": 119
+        },
+        {
+            "video_name": "v11.mp4",
+            "width": 1440,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 475,
+            "duration_sec": 17.59,
+            "threshold": 76,
+            "samples_processed": 95,
+            "alert_count": 6,
+            "unique_track_ids": 14
+        },
+        {
+            "video_name": "v12.mp4",
+            "width": 1920,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 480,
+            "duration_sec": 17.78,
+            "threshold": 101,
+            "samples_processed": 96,
+            "alert_count": 49,
+            "unique_track_ids": 24
+        },
+        {
+            "video_name": "v13.mp4",
+            "width": 1920,
+            "height": 1088,
+            "fps": 27.0,
+            "total_frames": 501,
+            "duration_sec": 18.56,
+            "threshold": 102,
+            "samples_processed": 56,
+            "alert_count": 55,
+            "unique_track_ids": 21
+        },
+        {
+            "video_name": "v2.mp4",
+            "width": 848,
+            "height": 400,
+            "fps": 30.0,
+            "total_frames": 331,
+            "duration_sec": 11.03,
+            "threshold": 17,
+            "samples_processed": 1,
+            "alert_count": 0,
+            "unique_track_ids": 13
+        },
+        {
+            "video_name": "v3.mp4",
+            "width": 1280,
+            "height": 720,
+            "fps": 30.0,
+            "total_frames": 331,
+            "duration_sec": 11.03,
+            "threshold": 45,
+            "samples_processed": 0,
+            "alert_count": 0,
+            "unique_track_ids": 0
+        },
+        {
+            "video_name": "v4.mp4",
+            "width": 1280,
+            "height": 720,
+            "fps": 25.0,
+            "total_frames": 341,
+            "duration_sec": 13.64,
+            "threshold": 45,
+            "samples_processed": 0,
+            "alert_count": 0,
+            "unique_track_ids": 0
+        },
+        {
+            "video_name": "v5.mp4",
+            "width": 768,
+            "height": 432,
+            "fps": 25.0,
+            "total_frames": 350,
+            "duration_sec": 14.0,
+            "threshold": 16,
+            "samples_processed": 70,
+            "alert_count": 66,
+            "unique_track_ids": 88
+        },
+        {
+            "video_name": "v6.mp4",
+            "width": 1440,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 501,
+            "duration_sec": 18.56,
+            "threshold": 76,
+            "samples_processed": 101,
+            "alert_count": 81,
+            "unique_track_ids": 129
+        },
+        {
+            "video_name": "v7.mp4",
+            "width": 1440,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 492,
+            "duration_sec": 18.22,
+            "threshold": 76,
+            "samples_processed": 99,
+            "alert_count": 95,
+            "unique_track_ids": 117
+        },
+        {
+            "video_name": "v8.mp4",
+            "width": 1440,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 501,
+            "duration_sec": 18.56,
+            "threshold": 76,
+            "samples_processed": 101,
+            "alert_count": 52,
+            "unique_track_ids": 119
+        },
+        {
+            "video_name": "v9.mp4",
+            "width": 1440,
+            "height": 1080,
+            "fps": 27.0,
+            "total_frames": 466,
+            "duration_sec": 17.26,
+            "threshold": 76,
+            "samples_processed": 94,
+            "alert_count": 17,
+            "unique_track_ids": 109
+        }
+    ]
+}

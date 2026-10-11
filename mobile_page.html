@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Temple Mobile Alert</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --status-normal: #238636;
+            --status-moderate: #d29922;
+            --status-congested: #da3633;
+            --change-increase: #f85149;
+            --change-decrease: #3fb950;
+            --change-unchanged: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: #f0f6fc;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(35, 134, 54, 0.15);
+            color: #3fb950;
+        }
+
+        .status-pill.waiting {
+            background: rgba(210, 153, 34, 0.15);
+            color: #d29922;
+        }
+
+        .status-pill.offline {
+            background: rgba(218, 54, 51, 0.15);
+            color: #f85149;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .metric-title {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #f0f6fc;
+        }
+
+        .change-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .change-badge {
+            display: inline-block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-top: 4px;
+        }
+
+        .change-increase {
+            background: rgba(218, 54, 51, 0.15);
+            color: #f85149;
+            border: 1px solid rgba(218, 54, 51, 0.3);
+        }
+
+        .change-decrease {
+            background: rgba(35, 134, 54, 0.15);
+            color: #3fb950;
+            border: 1px solid rgba(35, 134, 54, 0.3);
+        }
+
+        .change-unchanged {
+            background: rgba(139, 148, 158, 0.15);
+            color: #8b949e;
+            border: 1px solid rgba(139, 148, 158, 0.3);
+        }
+
+        .prev-crowd-text {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+
+        .crowd-status-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .crowd-badge {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-normal {
+            background: rgba(35, 134, 54, 0.2);
+            color: #3fb950;
+            border: 1px solid #238636;
+        }
+
+        .badge-moderate {
+            background: rgba(210, 153, 34, 0.2);
+            color: #d29922;
+            border: 1px solid #9e6a03;
+        }
+
+        .badge-congested {
+            background: rgba(218, 54, 51, 0.2);
+            color: #f85149;
+            border: 1px solid #da3633;
+        }
+
+        .alert-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .alert-box.active-early {
+            border-color: #d29922;
+            background: rgba(210, 153, 34, 0.08);
+        }
+
+        .alert-box.active-actual {
+            border-color: #f85149;
+            background: rgba(218, 54, 51, 0.12);
+        }
+
+        .alert-header {
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .alert-msg {
+            font-size: 0.82rem;
+            line-height: 1.35;
+            color: var(--text-primary);
+        }
+
+        .alert-time {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        /* LIVE HISTORY SECTION */
+        .history-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .history-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #f0f6fc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .history-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #0d1117;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: monospace;
+            border: 1px solid var(--border-color);
+        }
+
+        .history-time {
+            color: var(--text-secondary);
+            width: 65px;
+        }
+
+        .history-flow {
+            font-weight: 600;
+            color: #c9d1d9;
+        }
+
+        .history-diff {
+            font-weight: 700;
+            width: 45px;
+            text-align: right;
+        }
+
+        .history-type {
+            font-weight: 600;
+            width: 75px;
+            text-align: right;
+        }
+
+        .history-type {
+            font-weight: 600;
+            width: 75px;
+            text-align: right;
+        }
+
+        .txt-increase { color: #f85149; }
+        .txt-decrease { color: #3fb950; }
+        .txt-unchanged { color: #8b949e; }
+
+        .notif-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+            margin-top: 4px;
+        }
+
+        .notif-btn:active { opacity: 0.8; }
+        .notif-btn.granted { background-color: var(--status-normal); }
+
+        .notif-info {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* Floating Mobile Push Toast Notification Banner */
+        .push-toast-overlay {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 420px;
+            background: #161b22;
+            border: 2px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.85);
+            z-index: 99999;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .push-toast-overlay.hidden {
+            transform: translate(-50%, -150%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .push-toast-overlay.actual {
+            border-color: #f85149;
+            background: #280d0f;
+        }
+
+        .push-toast-overlay.early {
+            border-color: #d29922;
+            background: #261d0a;
+        }
+
+        .push-toast-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .push-toast-body {
+            flex: 1;
+        }
+
+        .push-toast-title {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .push-toast-msg {
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            line-height: 1.35;
+        }
+
+        .push-toast-time {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .push-toast-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Floating Animated Push Notification Banner -->
+<div id="pushToast" class="push-toast-overlay hidden">
+    <div id="pushToastIcon" class="push-toast-icon">🔔</div>
+    <div class="push-toast-body">
+        <div id="pushToastTitle" class="push-toast-title">Mobile Push Notification</div>
+        <div id="pushToastMsg" class="push-toast-msg">Crowd monitoring alert engine active.</div>
+        <div id="pushToastTime" class="push-toast-time">Just now</div>
+    </div>
+    <button class="push-toast-close" onclick="hidePushToast()">&times;</button>
+</div>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Smart Temple</h1>
+        <p>Mobile Crowd Notification Center</p>
+    </div>
+
+    <div class="connection-status">
+        <span>Connection:</span>
+        <span id="connectionBadge" class="status-pill">🟢 LIVE</span>
+    </div>
+
+    <!-- Enable Notification Button (Top Placement) -->
+    <button id="enableNotifBtn" class="notif-btn" onclick="requestNotificationPermission()">
+        🔔 Enable Mobile Push & Voice Alerts
+    </button>
+    <p id="notifInfo" class="notif-info">
+        Tap button above to activate mobile push notification cards, voice alerts, sound, and vibration.
+    </p>
+
+    <!-- Current & Predicted Crowd -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-title">Current Crowd</div>
+            <div id="currentCrowd" class="metric-value">--</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">Predicted Crowd</div>
+            <div id="predictedCrowd" class="metric-value">--</div>
+        </div>
+    </div>
+
+    <!-- Crowd Change Section -->
+    <div class="change-card">
+        <div class="metric-title">Crowd Trend</div>
+        <div id="changeBadge" class="change-badge change-unchanged">➖ Crowd Unchanged (0)</div>
+        <div class="prev-crowd-text">Previous Crowd: <span id="prevCrowdVal" style="font-weight:bold; color:#f0f6fc;">--</span> people</div>
+    </div>
+
+    <!-- Crowd Status Section -->
+    <div class="crowd-status-card">
+        <div class="metric-title">Crowd Status (Threshold: <span id="thresholdVal">--</span>)</div>
+        <div id="crowdBadge" class="crowd-badge badge-normal">Normal</div>
+    </div>
+
+    <!-- Alert Banner Box -->
+    <div id="alertBox" class="alert-box">
+        <div class="alert-header">
+            <span id="alertTitle">ℹ️ System Status</span>
+        </div>
+        <div id="alertMsg" class="alert-msg">Monitoring live temple crowd counts...</div>
+        <div id="alertTime" class="alert-time">Last Updated: --:--:--</div>
+    </div>
+
+    <!-- LIVE HISTORY SECTION -->
+    <div class="history-section">
+        <div class="history-title">
+            <span>📜 Live Crowd History</span>
+            <span style="font-size:0.7rem; color:var(--text-secondary); font-weight:normal;">Latest 30 Events</span>
+        </div>
+        <div id="historyList" class="history-list">
+            <div class="history-row">
+                <span class="history-time">--:--:--</span>
+                <span class="history-flow">-- → --</span>
+                <span class="history-diff">0</span>
+                <span class="history-type txt-unchanged">Unchanged</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let lastNotifiedAlertId = null;
+    let toastTimeout = null;
+
+    function playAlertSound(isActual) {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const audioCtx = new AudioCtx();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = isActual ? 'sawtooth' : 'sine';
+            osc.frequency.setValueAtTime(isActual ? 880 : 587.33, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.9);
+        } catch(e) {}
+    }
+
+    function speakAlert(text) {
+        try {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance(text);
+                msg.rate = 1.0;
+                msg.pitch = 1.0;
+                msg.volume = 1.0;
+                window.speechSynthesis.speak(msg);
+            }
+        } catch(e) {}
+    }
+
+    function showPushToast(title, msg, type, timestamp) {
+        const toast = document.getElementById('pushToast');
+        const toastIcon = document.getElementById('pushToastIcon');
+        const toastTitle = document.getElementById('pushToastTitle');
+        const toastMsg = document.getElementById('pushToastMsg');
+        const toastTime = document.getElementById('pushToastTime');
+
+        if (!toast) return;
+
+        toastTitle.innerText = title;
+        toastMsg.innerText = msg;
+        toastTime.innerText = timestamp ? 'Time: ' + timestamp : 'Just now';
+
+        toast.className = 'push-toast-overlay';
+        if (type === 'ACTUAL') {
+            toast.classList.add('actual');
+            toastIcon.innerText = '🚨';
+        } else if (type === 'EARLY') {
+            toast.classList.add('early');
+            toastIcon.innerText = '⚠️';
+        } else {
+            toastIcon.innerText = '🔔';
+        }
+
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            hidePushToast();
+        }, 10000);
+    }
+
+    function hidePushToast() {
+        const toast = document.getElementById('pushToast');
+        if (toast) toast.classList.add('hidden');
+    }
+
+    function checkPermissionStatus() {
+        const btn = document.getElementById('enableNotifBtn');
+        const info = document.getElementById('notifInfo');
+
+        if ("Notification" in window && Notification.permission === "granted") {
+            btn.classList.add('granted');
+            btn.innerText = "✅ Mobile Push & Voice Alerts Active";
+            info.innerText = "Push notification cards, voice announcements, alarm sound, and vibration are active.";
+        }
+    }
+
+    function requestNotificationPermission() {
+        // 1. Audio Alarm Beep
+        playAlertSound(false);
+
+        // 2. Device Vibration
+        if ("vibrate" in navigator) navigator.vibrate([200, 100, 200]);
+
+        // 3. Voice Speech Announcement
+        speakAlert("Smart Temple Mobile Push Notifications and Voice Alerts are now active!");
+
+        // 4. Top Animated Push Notification Toast Banner
+        showPushToast(
+            "✅ Mobile Push & Voice Alerts Active",
+            "Real-time mobile push cards, voice announcements, alarm sound, and vibration are ready for crowd alerts.",
+            new Date().toLocaleTimeString()
+        );
+
+        // 5. Update Button UI
+        const btn = document.getElementById('enableNotifBtn');
+        const info = document.getElementById('notifInfo');
+        btn.classList.add('granted');
+        btn.innerText = "✅ Mobile Push & Voice Alerts Active";
+        info.innerText = "Alert engine active! You will receive voice announcements, alarm chimes, and push cards on crowd surges.";
+
+        // 6. Request Browser Native Push if available/supported
+        if ("Notification" in window && Notification.permission === "default") {
+            try {
+                Notification.requestPermission().then(() => checkPermissionStatus());
+            } catch(e) {}
+        }
+    }
+
+    async function pollStatus() {
+        try {
+            const res = await fetch('/api/status');
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+
+            // Connection & Live Badge
+            const connBadge = document.getElementById('connectionBadge');
+            if (data.is_live) {
+                connBadge.className = 'status-pill';
+                connBadge.innerText = '🟢 LIVE';
+            } else {
+                connBadge.className = 'status-pill waiting';
+                connBadge.innerText = '⚠️ Waiting for live crowd data...';
+            }
+
+            // Current & Predicted Metrics
+            document.getElementById('currentCrowd').innerText = (data.current_crowd !== undefined) ? data.current_crowd + ' people' : '--';
+            document.getElementById('predictedCrowd').innerText = (data.predicted_crowd !== undefined) ? data.predicted_crowd + ' people' : '--';
+            document.getElementById('prevCrowdVal').innerText = data.previous_crowd ?? '--';
+            document.getElementById('thresholdVal').innerText = data.threshold ?? '--';
+
+            // Crowd Change Badge
+            const changeBadge = document.getElementById('changeBadge');
+            const changeType = data.change_type || 'Unchanged';
+            const changeStr = data.change_str || '0';
+
+            if (changeType === 'Increased') {
+                changeBadge.className = 'change-badge change-increase';
+                changeBadge.innerText = `📈 Crowd Increased (${changeStr} people)`;
+            } else if (changeType === 'Decreased') {
+                changeBadge.className = 'change-badge change-decrease';
+                changeBadge.innerText = `📉 Crowd Decreased (${changeStr} people)`;
+            } else {
+                changeBadge.className = 'change-badge change-unchanged';
+                changeBadge.innerText = `➖ Crowd Unchanged (0 people)`;
+            }
+
+            // Crowd Status Badge
+            const crowdBadge = document.getElementById('crowdBadge');
+            const status = data.crowd_status || 'Normal';
+            crowdBadge.innerText = status;
+            if (status === 'Congested') {
+                crowdBadge.className = 'crowd-badge badge-congested';
+            } else if (status === 'Moderate') {
+                crowdBadge.className = 'crowd-badge badge-moderate';
+            } else {
+                crowdBadge.className = 'crowd-badge badge-normal';
+            }
+
+            // Alert Banner Box
+            const alertBox = document.getElementById('alertBox');
+            const alertTitle = document.getElementById('alertTitle');
+            const alertMsg = document.getElementById('alertMsg');
+            const alertTime = document.getElementById('alertTime');
+
+            alertTitle.innerText = data.alert_title || 'ℹ️ System Status';
+            alertMsg.innerText = data.alert_message || 'Crowd levels are currently within safe threshold limits.';
+            alertTime.innerText = 'Last Updated: ' + (data.timestamp || '--:--:--');
+
+            alertBox.className = 'alert-box';
+            if (data.alert_type === 'ACTUAL') {
+                alertBox.classList.add('active-actual');
+            } else if (data.alert_type === 'EARLY') {
+                alertBox.classList.add('active-early');
+            }
+
+            // Render Live History Table (Reverse order: latest on top)
+            if (data.history && Array.isArray(data.history) && data.history.length > 0) {
+                const historyList = document.getElementById('historyList');
+                let html = '';
+                const historyCopy = [...data.history].reverse();
+
+                historyCopy.forEach(item => {
+                    let colorClass = 'txt-unchanged';
+                    if (item.change_type === 'Increased') colorClass = 'txt-increase';
+                    if (item.change_type === 'Decreased') colorClass = 'txt-decrease';
+
+                    html += `
+                        <div class="history-row">
+                            <span class="history-time">${item.time}</span>
+                            <span class="history-flow">${item.prev} → ${item.curr}</span>
+                            <span class="history-diff ${colorClass}">${item.change_str}</span>
+                            <span class="history-type ${colorClass}">${item.change_type}</span>
+                        </div>
+                    `;
+                });
+                historyList.innerHTML = html;
+            }
+
+            // Trigger Mobile Push Notification on new Alert ID
+            if (data.alert_id && data.alert_id !== lastNotifiedAlertId) {
+                lastNotifiedAlertId = data.alert_id;
+                if (data.alert_type === 'EARLY' || data.alert_type === 'ACTUAL') {
+                    // 1. Audio Alarm Sound
+                    playAlertSound(data.alert_type === 'ACTUAL');
+
+                    // 2. Device Vibration
+                    if ("vibrate" in navigator) {
+                        navigator.vibrate(data.alert_type === 'ACTUAL' ? [300, 100, 300, 100, 500] : [200, 100, 200]);
+                    }
+
+                    // 3. Voice Speech Announcement
+                    const speechText = data.alert_title + ". " + data.alert_message;
+                    speakAlert(speechText);
+
+                    // 4. Animated Top Mobile Push Notification Banner
+                    showPushToast(data.alert_title, data.alert_message, data.alert_type, data.last_alert_time || data.timestamp);
+
+                    // 5. Native OS Push Notification (if granted)
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        try {
+                            new Notification(data.alert_title, {
+                                body: data.alert_message,
+                                icon: "https://cdn-icons-png.flaticon.com/512/3602/3602145.png"
+                            });
+                        } catch(e) {}
+                    }
+                }
+            }
+
+        } catch (err) {
+            const connBadge = document.getElementById('connectionBadge');
+            connBadge.className = 'status-pill offline';
+            connBadge.innerText = '🔴 Disconnected';
+        }
+    }
+
+    // Initialize
+    checkPermissionStatus();
+    pollStatus();
+    setInterval(pollStatus, 1000);
+</script>
+
+</body>
+</html>

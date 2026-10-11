@@ -1,0 +1,18 @@
+{
+  "max_train_count": 157.0,
+  "model_type": "LSTM",
+  "seq_length": 10,
+  "hidden_size": 256,
+  "num_layers": 3,
+  "n_features": 6,
+  "use_features": true,
+  "feature_cols": [
+    "People_Count",
+    "count_lag1",
+    "count_change",
+    "rolling_mean5",
+    "rolling_std5",
+    "growth_rate"
+  ],
+  "dropout": 0.05
+}
