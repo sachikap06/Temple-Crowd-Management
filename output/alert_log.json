@@ -1,0 +1,353 @@
+[
+  {
+    "timestamp": "2026-10-16 18:42:25",
+    "epoch": 1792156345.0457678,
+    "area_name": "Main Sanctum",
+    "crowd_count": 99,
+    "crowd_status": "MODERATE",
+    "previous_status": "NORMAL",
+    "reason": "Crowd escalated from NORMAL to MODERATE in Main Sanctum",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Main Sanctum",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Main Sanctum\nCrowd Count  : 99 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 18:42:25\nReason      ",
+        "timestamp": "2026-10-16 18:42:25"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:50:53",
+    "epoch": 1792160453.278531,
+    "area_name": "Temple Area",
+    "crowd_count": 13,
+    "crowd_status": "MODERATE",
+    "previous_status": "NORMAL",
+    "reason": "Crowd escalated from NORMAL to MODERATE in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Temple Area",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Temple Area\nCrowd Count  : 13 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 19:50:53\nReason       ",
+        "timestamp": "2026-10-16 19:50:53"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:51:16",
+    "epoch": 1792160476.6722012,
+    "area_name": "Temple Area",
+    "crowd_count": 6,
+    "crowd_status": "NORMAL",
+    "previous_status": "MODERATE",
+    "reason": "Crowd recovered from MODERATE to NORMAL in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Recovery] Temple Area - Back to Normal",
+        "message_preview": "Temple Crowd Recovery Notice\n============================================\nArea            : Temple Area\nCurrent Count   : 6 people\nPrevious Status : MODERATE\nCurrent Status  : NORMAL\nTimestamp       :",
+        "timestamp": "2026-10-16 19:51:16"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": true
+  },
+  {
+    "timestamp": "2026-10-16 19:51:17",
+    "epoch": 1792160477.646137,
+    "area_name": "Temple Area",
+    "crowd_count": 9,
+    "crowd_status": "MODERATE",
+    "previous_status": "NORMAL",
+    "reason": "Crowd escalated from NORMAL to MODERATE in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Temple Area",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Temple Area\nCrowd Count  : 9 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 19:51:17\nReason       :",
+        "timestamp": "2026-10-16 19:51:17"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:51:22",
+    "epoch": 1792160482.663841,
+    "area_name": "Temple Area",
+    "crowd_count": 7,
+    "crowd_status": "MODERATE",
+    "previous_status": "NORMAL",
+    "reason": "Crowd escalated from NORMAL to MODERATE in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Temple Area",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Temple Area\nCrowd Count  : 7 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 19:51:22\nReason       :",
+        "timestamp": "2026-10-16 19:51:22"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:51:23",
+    "epoch": 1792160483.158043,
+    "area_name": "Temple Area",
+    "crowd_count": 6,
+    "crowd_status": "NORMAL",
+    "previous_status": "MODERATE",
+    "reason": "Crowd recovered from MODERATE to NORMAL in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Recovery] Temple Area - Back to Normal",
+        "message_preview": "Temple Crowd Recovery Notice\n============================================\nArea            : Temple Area\nCurrent Count   : 6 people\nPrevious Status : MODERATE\nCurrent Status  : NORMAL\nTimestamp       :",
+        "timestamp": "2026-10-16 19:51:23"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": true
+  },
+  {
+    "timestamp": "2026-10-16 19:51:28",
+    "epoch": 1792160488.6227365,
+    "area_name": "Temple Area",
+    "crowd_count": 6,
+    "crowd_status": "NORMAL",
+    "previous_status": "MODERATE",
+    "reason": "Crowd recovered from MODERATE to NORMAL in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Recovery] Temple Area - Back to Normal",
+        "message_preview": "Temple Crowd Recovery Notice\n============================================\nArea            : Temple Area\nCurrent Count   : 6 people\nPrevious Status : MODERATE\nCurrent Status  : NORMAL\nTimestamp       :",
+        "timestamp": "2026-10-16 19:51:28"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": true
+  },
+  {
+    "timestamp": "2026-10-16 19:51:31",
+    "epoch": 1792160491.2709289,
+    "area_name": "Temple Area",
+    "crowd_count": 8,
+    "crowd_status": "MODERATE",
+    "previous_status": "NORMAL",
+    "reason": "Crowd escalated from NORMAL to MODERATE in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Temple Area",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Temple Area\nCrowd Count  : 8 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 19:51:31\nReason       :",
+        "timestamp": "2026-10-16 19:51:31"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:52:32",
+    "epoch": 1792160552.2531378,
+    "area_name": "Temple Area",
+    "crowd_count": 17,
+    "crowd_status": "MODERATE",
+    "previous_status": "MODERATE",
+    "reason": "Ongoing MODERATE crowd level in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Temple Area",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Temple Area\nCrowd Count  : 17 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 19:52:32\nReason       ",
+        "timestamp": "2026-10-16 19:52:32"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:52:33",
+    "epoch": 1792160553.1795847,
+    "area_name": "Temple Area",
+    "crowd_count": 16,
+    "crowd_status": "NORMAL",
+    "previous_status": "MODERATE",
+    "reason": "Crowd recovered from MODERATE to NORMAL in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Recovery] Temple Area - Back to Normal",
+        "message_preview": "Temple Crowd Recovery Notice\n============================================\nArea            : Temple Area\nCurrent Count   : 16 people\nPrevious Status : MODERATE\nCurrent Status  : NORMAL\nTimestamp       ",
+        "timestamp": "2026-10-16 19:52:33"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": true
+  },
+  {
+    "timestamp": "2026-10-16 19:52:38",
+    "epoch": 1792160558.6393878,
+    "area_name": "Temple Area",
+    "crowd_count": 16,
+    "crowd_status": "NORMAL",
+    "previous_status": "MODERATE",
+    "reason": "Crowd recovered from MODERATE to NORMAL in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Recovery] Temple Area - Back to Normal",
+        "message_preview": "Temple Crowd Recovery Notice\n============================================\nArea            : Temple Area\nCurrent Count   : 16 people\nPrevious Status : MODERATE\nCurrent Status  : NORMAL\nTimestamp       ",
+        "timestamp": "2026-10-16 19:52:38"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": true
+  },
+  {
+    "timestamp": "2026-10-16 19:52:40",
+    "epoch": 1792160560.0833607,
+    "area_name": "Temple Area",
+    "crowd_count": 17,
+    "crowd_status": "MODERATE",
+    "previous_status": "NORMAL",
+    "reason": "Crowd escalated from NORMAL to MODERATE in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Alert] MODERATE - Temple Area",
+        "message_preview": "Temple Crowd Management Alert\n============================================\nArea         : Temple Area\nCrowd Count  : 17 people\nClassification: MODERATE\nTimestamp    : 2026-10-16 19:52:40\nReason       ",
+        "timestamp": "2026-10-16 19:52:40"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": false
+  },
+  {
+    "timestamp": "2026-10-16 19:52:45",
+    "epoch": 1792160565.4012072,
+    "area_name": "Temple Area",
+    "crowd_count": 15,
+    "crowd_status": "NORMAL",
+    "previous_status": "MODERATE",
+    "reason": "Crowd recovered from MODERATE to NORMAL in Temple Area",
+    "recipients_notified": [
+      "Temple Administrator"
+    ],
+    "delivery_results": [
+      {
+        "success": true,
+        "provider": "MockProvider",
+        "detail": "[MOCK - NOT A REAL DELIVERY] Notification logged for Temple Administrator (administrator)",
+        "recipient_name": "Temple Administrator",
+        "recipient_role": "administrator",
+        "recipient_contact": "admin@temple.local",
+        "subject": "[Temple Crowd Recovery] Temple Area - Back to Normal",
+        "message_preview": "Temple Crowd Recovery Notice\n============================================\nArea            : Temple Area\nCurrent Count   : 15 people\nPrevious Status : MODERATE\nCurrent Status  : NORMAL\nTimestamp       ",
+        "timestamp": "2026-10-16 19:52:45"
+      }
+    ],
+    "is_test_mode": true,
+    "is_recovery": true
+  }
+]

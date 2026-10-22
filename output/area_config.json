@@ -1,0 +1,47 @@
+{
+  "Main Sanctum": {
+    "name": "Main Sanctum",
+    "count_threshold_moderate": 10,
+    "count_threshold_congested": 20,
+    "area_sqm": 50.0,
+    "density_threshold_moderate": 0.3,
+    "density_threshold_congested": 0.5,
+    "max_capacity": 30
+  },
+  "Entrance Gate": {
+    "name": "Entrance Gate",
+    "count_threshold_moderate": 20,
+    "count_threshold_congested": 40,
+    "area_sqm": 100.0,
+    "density_threshold_moderate": 0.25,
+    "density_threshold_congested": 0.45,
+    "max_capacity": 60
+  },
+  "Corridor": {
+    "name": "Corridor",
+    "count_threshold_moderate": 8,
+    "count_threshold_congested": 15,
+    "area_sqm": 30.0,
+    "density_threshold_moderate": 0.35,
+    "density_threshold_congested": 0.55,
+    "max_capacity": 20
+  },
+  "Prasadam Hall": {
+    "name": "Prasadam Hall",
+    "count_threshold_moderate": 25,
+    "count_threshold_congested": 50,
+    "area_sqm": 120.0,
+    "density_threshold_moderate": 0.25,
+    "density_threshold_congested": 0.45,
+    "max_capacity": 70
+  },
+  "Parking Area": {
+    "name": "Parking Area",
+    "count_threshold_moderate": 30,
+    "count_threshold_congested": 60,
+    "area_sqm": 200.0,
+    "density_threshold_moderate": 0.2,
+    "density_threshold_congested": 0.35,
+    "max_capacity": 80
+  }
+}
